@@ -13,7 +13,8 @@ const renderOneCoctails = (eachDrinks) => {
   const indexFav = coctailsFavorites.findIndex(
     (item) => item.idDrink === eachDrinks.id
   );
-
+  console.log(eachDrinks);
+  console.log(indexFav);
   if (indexFav === -1) {
     html = `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
     <h3> ${eachDrinks.strDrink} </h3>
@@ -27,11 +28,12 @@ const renderOneCoctails = (eachDrinks) => {
     
 </li>`;
   }
-  html = `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
-        <h3> ${eachDrinks.strDrink} </h3>
-        <img id="imagen" src="${eachDrinks.strDrinkThumb}" alt="Imagen">
-        
-  </li>`;
+  return html;
+  // html = `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
+  //       <h3> ${eachDrinks.strDrink} </h3>
+  //       <img id="imagen" src="${eachDrinks.strDrinkThumb}" alt="Imagen">
+
+  // </li>`;
 };
 //creo mi función donde voy a guardar los favoritos//
 const addfavorite = (ev) => {
@@ -82,7 +84,7 @@ const getData = () => {
     //en este then le pido que únicamente me guarde en mi variable dataApi el dato concreto que necesito de la Api//
     .then((dataApi) => {
       coctailsData = dataApi.drinks;
-      //   console.log(dataApi);
+      console.log(coctailsData);
       renderAllCoctails(coctailsData);
     });
 };
