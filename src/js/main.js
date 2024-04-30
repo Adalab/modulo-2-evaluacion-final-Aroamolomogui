@@ -9,7 +9,25 @@ let coctailsData = [];
 let coctailsFavorites = [];
 /*3ºvoy a renderizar=pintar los datos de mi API creo dos funciones una que contenga todos los coctails y otra que contenta uno en concreto*/
 const renderOneCoctails = (eachDrinks) => {
-  return `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
+  let html = "";
+  const indexFav = coctailsFavorites.findIndex(
+    (item) => item.idDrink === eachDrinks.id
+  );
+
+  if (indexFav === -1) {
+    html = `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
+    <h3> ${eachDrinks.strDrink} </h3>
+    <img id="imagen" src="${eachDrinks.strDrinkThumb}" alt="Imagen">
+    
+</li>`;
+  } else {
+    html = `<li class="card js_cocktails grey"  id="${eachDrinks.idDrink}">
+    <h3> ${eachDrinks.strDrink} </h3>
+    <img id="imagen" src="${eachDrinks.strDrinkThumb}" alt="Imagen">
+    
+</li>`;
+  }
+  html = `<li class="card js_cocktails"  id="${eachDrinks.idDrink}">
         <h3> ${eachDrinks.strDrink} </h3>
         <img id="imagen" src="${eachDrinks.strDrinkThumb}" alt="Imagen">
         
@@ -39,6 +57,7 @@ const addfavorite = (ev) => {
   }
 
   console.log(coctailsFavorites);
+  renderAllCoctails(coctailsData);
 };
 
 const renderAllCoctails = (array) => {
