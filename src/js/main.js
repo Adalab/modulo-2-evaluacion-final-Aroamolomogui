@@ -15,9 +15,10 @@ const renderOneCoctails = (eachDrinks) => {
   </li>`;
 };
 
-const renderAllCoctails = () => {
-  for (let i = 0; i < coctailsData.length; i++) {
-    ulList.innerHTML += renderOneCoctails(coctailsData[i]);
+const renderAllCoctails = (array) => {
+  ulList.innerHTML = "";
+  for (let i = 0; i < array.length; i++) {
+    ulList.innerHTML += renderOneCoctails(array[i]);
   }
 };
 /*2ºcreo mi función que devuelve los datos de la API:
@@ -26,18 +27,22 @@ const renderAllCoctails = () => {
 const getData = () => {
   fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
     .then((response) => response.json())
-    //en este then le pido que únicamente me guarde en ki variable dataApi el dato concreto que necesito de la Api//
+    //en este then le pido que únicamente me guarde en mi variable dataApi el dato concreto que necesito de la Api//
     .then((dataApi) => {
       coctailsData = dataApi.drinks;
       console.log(dataApi);
-      renderAllCoctails(ulList);
+      renderAllCoctails(coctailsData);
     });
 };
 const handleSearch = () => {
   const valueSearch = inputSearch.value;
-  console.log(valueSearch);
+  const filterCoctails = coctailsData.filter((item) =>
+    item.strDrink.toLowerCase().includes(valueSearch.toLowerCase())
+  );
+  renderAllCoctails(filterCoctails);
+  console.log(filterCoctails);
 };
 
 //3ºLlamo a mi función que se ejecuta al cargar la página cuando hace la petición al servidor//
-inputSearch.addEventListener = ("input", handleSearch);
+inputSearch.addEventListener("input", handleSearch);
 getData();
